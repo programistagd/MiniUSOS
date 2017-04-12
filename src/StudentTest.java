@@ -18,6 +18,9 @@ public class StudentTest {
         assertEquals(c.imie, "Jan");
         assertEquals(c.nazwisko, "Kowalski");
         assertTrue(c.plec==Plec.M);
+
+        //moje:
+        assertEquals("Jan Kowalski", c.toString());
     }
 
     @Test
@@ -52,8 +55,10 @@ public class StudentTest {
         assertEquals(c.imie, "Ewa");
         assertEquals(c.nazwisko, "Kowalska");
         assertTrue(c.plec==Plec.K);
+        assertEquals("Ewa Kowalska",c.toString());
         UczestnikZajec u = c;
         u.zapiszNaPrzedmiot(dajPrzedmiotP1());
+        assertEquals("Ewa Kowalska\nUczestniczy w:\nMatematyka dyskretna",c.toString());
     }
 
     @Test
@@ -102,6 +107,19 @@ public class StudentTest {
         return new Student("Jan", "Kowalski", Plec.M, 123123, "Informatyka", 2);
     }
 
+    @Test
+    public void test_uczestnik_zajec(){
+        UczestnikZajec u = new UczestnikZajec("Jan","Kowalski",Plec.M);
+
+        assertTrue(u.dajZajecia().isEmpty());
+
+        Przedmiot p1 = dajPrzedmiotP1();
+
+        u.zapiszNaPrzedmiot(p1);
+
+        assertEquals(1, u.dajZajecia().size());
+        assertEquals(p1.nazwa, u.dajZajecia().get(0).toString());
+    }
 
 
 
